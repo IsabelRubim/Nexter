@@ -1,0 +1,82 @@
+.homes {
+    grid-column: center-start / center-end; // Isso irá centrar o conteúdo da vw. 
+    margin: 15rem 0;
+
+    // Grid dos cards
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+    grid-gap: 7rem;
+}
+
+.home {
+    background-color: $color-grey-light-1;
+
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); // Faz com que os icones do card ficam divididos lado a lado em duas colunas
+    grid-row-gap: 3.5rem; // Espaço entre os icones 
+
+    &__img {
+        width: 100%;
+        grid-row: 1 / 2; // Difine a linha pois o itens da grid não sobrepoem um sobre o outro, ou seja, para sobrepor a img e o icone devemos deixar explicito as duas linhas deles iguais.
+        grid-column: 1 / -1; // Expandindo a img até o final da coluna ela irá ocupar as duas colunas
+        z-index: 1; // Abaixo do icone
+    }
+
+    &__like {
+        // Definindo row porque ela está implicita, e com isso trás o icone para a primeira linha, e com a coluna definida leva ele para o canto da img
+        grid-row: 1 / 2;
+        grid-column: 2 / 3;
+        fill: $color-primary;
+        height: 2.5rem;
+        width: 2.5rem;
+        z-index: 2; // Acima da img
+        justify-self: end; // Coloca o item que está na célula no fim na horizontal
+        margin: 1rem;
+    }
+
+    &__name {
+        grid-row: 1 / 2;
+        grid-column: 1 / -1; // Expande para as duas colunas.
+        justify-self: center; // Centro horizontal
+        align-self: end; // Vertical final da img
+        z-index: 3; // Sobrepor a img
+
+        width: 80%;
+        font-family: $font-display;
+        font-size: 1.6rem;
+        text-align: center;
+        padding: 1.25rem;
+        background-color: $color-secondary;
+        color: #fff;
+        font-weight: 400;
+        transform: translateY(50%); // Corresponde a 50% da altura do próprio elemento. Coloca o texto no meio da célula.        
+    }
+
+    &__location,
+    &__rooms {
+        margin-top: 2.5rem; // Para os icones de cima
+    }
+
+    &__location,
+    &__rooms,
+    &__area,
+    &__price {
+
+        font-size: 1.5rem;
+        margin-left: 2rem;
+
+        display: flex; // Coloca o texto e o icone lado a lado
+        align-items: center;
+
+        svg {
+            fill: $color-primary;
+            height: 2rem;
+            width: 2rem;
+            margin-right: 1rem;
+        }
+    }
+
+    &__btn {
+        grid-column: 1 / -1; 
+    }
+}

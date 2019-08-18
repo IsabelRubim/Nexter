@@ -1,0 +1,69 @@
+.header {
+    background-color: $color-grey-dark-1;
+    grid-column: full-start / col-end 6; // Começa depois da side bar e termina na coluna 6 do repeat que definimos no container.
+    background-image: linear-gradient(rgba($color-secondary, .93), rgba($color-secondary, .93)), url(../img/hero.jpeg);
+    background-size: cover;
+    background-position: center; // Faz com que a imagem fique sempre no centro, mesmo se rendimensionamos a tela.
+    padding: 8rem;
+    padding-top: 4rem;
+
+    display: grid;
+    grid-template-rows: 1fr min-content minmax(6rem, min-content) 1fr; // Faz com que as outras linhas sejam dimensionadas automaticamente, mas só funciona porque temos uma altura bem definida de 80% da vh (viewport). O minmax foi adicionado na mediaqueries, tornando o titulo redimensionado.
+    //A coluna não foi definida, mas devemos definir porque o header não está totalmente centralizado.
+    grid-template-columns: minmax(min-content, max-content); // Agora ela ocupa o espaço necessário, o minmax foi adicionado por conta da medias queries tornando o header mais responsivo ao diminuir a viewport
+    grid-row-gap: 1.5rem; // Para dá lacunas (espaço) para linhas entre os itens redimensionados automaticamente.
+    justify-content: center;
+
+    @media only screen and (max-width: $bp-medium) {
+        grid-column: 1 / -1; // poderia usar os nomes full-start e full-end também          
+    }
+
+    @media only screen and (max-width: $bp-small) {
+        padding: 5rem;
+    }
+
+    &__logo {
+        height: 3rem;
+        justify-self: center;
+    }
+
+    &__btn {
+        align-self: start;
+        justify-self: start;
+    }
+
+    &__seenon-text {
+        display: grid;
+        grid-template-columns: 1fr max-content 1fr; // Faz com que as linhas ocupem todo o espaço disponível e o texto ocupe o maximo de espaço que ele precisa
+        grid-column-gap: 1.5rem; // Espaço entre os pseudoelementos e o texto
+        align-items: center; // alinha os itens (linha e texto) verticalmente
+
+        font-size: 1.6rem;
+        color: $color-grey-light-2;
+
+        // Cria duas linhas antes e depois do texto
+        &::before,
+        &::after {
+            content: "";
+            height: 1px;
+            display: block;
+            background-color: currentColor; // Herda a cor do pai.
+        }
+
+    }
+
+    &__seenon-logos {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-column-gap: 3rem;
+        justify-items: center;
+        align-items: center;
+
+        img {
+            max-height: 2.5rem; // pode ser menor que isso
+            max-width: 100%; // Tornando mais redimensionavel e podendo ser menor que 100%.
+            filter: brightness(70%); // Escurece a img.
+        }
+        
+    }    
+}

@@ -1,0 +1,76 @@
+// COLOR VARIABLES
+$color-primary: #c69963;
+$color-primary-dark: #B28451;
+
+$color-secondary: #101d2c;
+
+$color-grey-light-1: #f9f7f6;
+$color-grey-light-2: #aaa;
+
+$color-grey-dark-1: #54483A;
+$color-grey-dark-2: #6D5D4B;
+
+// FONT VARIABLES
+$font-primary: 'Nunito', sans-serif;
+$font-display: 'Josefin Sans', sans-serif;
+
+// RESPONSIVE BREAKPOINTS
+$bp-largest: 75em;          // 1200px/16px = 75em
+$bp-large: 62.5em;          // 1000px
+$bp-medium: 50em;           // 800px
+$bp-small: 37.5em;          // 600px
+
+// Reset global
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+}
+
+html {
+    box-sizing: border-box;
+    font-size: 62.5%; // 10px/16px = 62.5% -> 1rem = 10px
+
+    @media only screen and (max-width: $bp-largest) {
+        font-size: 50%;
+    }
+}
+
+body {
+    font-family: $font-primary;
+    color: $color-grey-dark-2;
+    font-weight: 300;
+    line-height: 1.6;
+}
+/* 
+// Rows
+ 1º Linha do layout - A unidade vh se adapta a viewport, assim a altura dela diminui conforme diminuimos a viewport ou vice e versa.
+ 2º Linha do layout - A linha (altura) cresce conforme diminuimos a view-port, com isso usamos a prop. min-content.
+ Prop. auto significa que se adapta a todo container 
+ 3º Linha do layout - 40vw isso porque ela cresce e diminuir conforme aumentamos e diminuimos a largura do navegador.
+ 4º 3 Linhas do layout terão o mesmo valor se adapta adapta a altura da vh
+
+// Columns
+ 1º sidebar irá ocupar todo espaço fracionário do lado direito e esquerdo, com isso adicionamos 1fr antes do repeat e depois. Mas o 1fr não deixará espaços quando diminuimos a pagina, por isso adicionamos uma minmax com um espaço minimo de 60px = 6rem.
+ 2º Serão oito colunas (torna mais fácil para centralizar o layout) centradas no layout com a capacidade de largura minima que o conteudo possa ocupa e o máximo 140px = 14rem de largura.
+*/
+
+.container {
+    display: grid;
+    grid-template-rows: 80vh min-content 40vw repeat(3, min-content);  
+    grid-template-columns: [sidebar-start] 8rem [sidebar-end full-start] minmax(6rem, 1fr) [center-start] repeat(8, [col-start] minmax(min-content, 14rem) [col-end]) [center-end] minmax(6rem, 1fr) [full-end]; // [] nome das colunas
+
+    // Colocando a sidebar acima, com isso excluimos uma coluna e adicionamos uma linha.
+    @media only screen and (max-width: $bp-large) {
+        grid-template-rows: 6rem 80vh min-content 40vw repeat(3, min-content);  
+        grid-template-columns: [full-start] minmax(6rem, 1fr) [center-start] repeat(8, [col-start] minmax(min-content, 14rem) [col-end]) [center-end] minmax(6rem, 1fr) [full-end];        
+    }
+
+    // Criando uma nova linha para realtors (min-content) depois do 100vh que é o header e subtraimos a sidebar calc(100vh - 6rem) para não ficar sobrando header ao descer o scroll, e para o realtor o min-content
+    // A linha acima comentada, foi corrigida no final do vídeo e não precisamos de todas essas linhas pois ela será já ajustada na colocação automatica.
+    @media only screen and (max-width: $bp-medium) {
+        grid-template-rows: 6rem calc(100vh - 6rem);          
+    }
+}

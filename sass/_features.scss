@@ -1,0 +1,46 @@
+// Container da feature
+.features {
+    grid-column: center-start / center-end; // Isso irá centrar o conteúdo da vw. 
+
+    margin: 15rem 0;
+    
+    // Caso o navegador suporta Grid, caso não ele irá usar as prop's float que definimos na feature
+    @supports(display: grid) {
+        display: grid; // Sub-grid, mas ainda não está disponivel, então iremos criar nossa própria grid abaixo.
+        //grid-template-columns: repeat(3, 1fr); // Não necessitamos de linhas porque o layout completo já está ajustado.
+        grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr)); // Isso torna o ajustamento automatico sem media queries, o min será 25rem e o maximo ocupara todo espaço fracionario
+        grid-gap: 6rem; // Lacunas entre os itens.
+        align-items: start; // Isso torna os itens no top
+    }
+}
+
+.feature {
+
+    float: left;
+    width: 33.3333%; // Para a prop float e ocupar 100% da seção
+    margin-bottom: 6rem;
+
+    // CSS Grid e Flexbox ignora propriedades como float, display inline-block, tabbl-cell e vertical-align
+    @supports(display: grid) {
+        width: auto;
+        margin-bottom: 0;
+    }
+
+    // Alinhar itens dentro de uma grade
+    display: grid;
+    grid-template-columns: min-content 1fr; // A 1º coluna irá ocupar a largura mínima do icone (4.5) e a segunda coluna irá ocupar todo resto.
+    grid-row-gap: 1.5rem; // Espaço entre o titulo e paragrafo
+    grid-column-gap: 2.5rem; // Espaço entre o icone e o (titulo e paragrafo)
+
+    &__icon {
+        fill: $color-primary; // Cor do ícone svg.
+        width: 4.5rem;
+        height: 4.5rem;
+        grid-row: 1 / span 2; // Faz com que o ícone ocupe a linha 1 até a 2 para empurrar o paragrafo abaixo do titulo. (grid implicita)
+        transform: translateY(-1rem);
+    }
+
+    &__text {
+        font-size: 1.7rem;
+    }
+}

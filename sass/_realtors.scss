@@ -1,0 +1,44 @@
+.realtors {
+    background-color: $color-secondary;
+    grid-column: col-start 7 / full-end; // Começa a partir da 7 coluna do header e termina a vw.
+
+    //Centralizar o container no pai
+    display: grid;
+    align-content: center;
+    justify-content: center;
+    justify-items: center; // Titulo
+    grid-row-gap: 2rem; // Espaçamento do titulo
+
+    @media only screen and (max-width: $bp-medium) {
+        grid-column: 1 / -1;
+        padding: 3rem;
+    }
+
+    &__list {
+        display: grid;
+        grid-template-columns: min-content max-content; // Sabemos que a img ocupa 7rem, então ela ocupara o min dela (7rem). E o texto queremos que não quebre na linha por isso definimos max-content.
+        grid-column-gap: 2rem;
+        grid-row-gap: 5vh; // Queremos que muda conforme a altura da viewport mude, para não ficar um espaço gigante em outra telas
+        align-items: center;
+
+        @media only screen and (max-width: $bp-medium) {
+            grid-template-columns: repeat(3, min-content max-content); // Irá criar 3 colunas que irá ocupar o min da img e max do text
+        }
+
+        @media only screen and (max-width: $bp-small) {
+            grid-template-columns: min-content max-content;
+        }
+    }
+
+    &__img {
+        width: 7rem;
+        border-radius: 50%;
+        display: block; // tirar espaço em branco que a img deixa
+    }
+
+    &__sold {
+        text-transform: uppercase;
+        color: $color-grey-light-2;
+        margin-top: -3px;
+    }
+}
